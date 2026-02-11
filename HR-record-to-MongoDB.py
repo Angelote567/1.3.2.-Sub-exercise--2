@@ -8,6 +8,7 @@ def create_hr_record(
     dependents, job_title, department, work_center, job_group,
     hire_date, contract_type, workday, schedule, probation_period,
     applicable_collective_agreement,
+    # Quitamos: 
 
     # ----- COMPENSATION -----
     base_salary_monthly, allowances, extra_payments, extra_payments_prorated,
