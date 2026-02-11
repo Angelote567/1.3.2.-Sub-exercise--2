@@ -1,3 +1,6 @@
+// Estamos en la línea 57
+
+
 EmployeeProfile (perfil):
 
 employee_id: int (único)
@@ -34,26 +37,25 @@ withholding_rate: float (porcentaje IRPF, ej. 15.0)
 bank_account_iban: str
 estimated_company_cost: float
 compensation_notes: str
+
 Documentation (documenación)
 contract_signed: bool
 contract_addenda: list[str] (o list[dict] si guardáis metadatos)
 id_copy: bool
 degrees_certificates: list[str]
 resume_cv: bool
+CV: JSON # En caso de existir resume_cv -> CV
 gdpr_policies_signed: bool
 code_of_ethics_signed: bool
 osh_informed: bool
 medical_clearance: bool
 image_use_authorization: bool
-last_documentation_update_date: date/datetime
-History (historial)
-history: list[dict]
+last_documentation_update_date: datetime
 
-Cada evento recomendado como:
-date: date/datetime
-event_type: str (Promotion/Transfer/SalaryChange/Leave…)
-description: str
-(opcionales) old_value: any, new_value: **any, department`: str, etc.
+History (historial)
+history: JSON //Fecha "de entregado", tipo_evento, entregado/recibido, descripcion
+
+Hemos cambiado el evento por un JSON en el history 
 
 OSH / PRL
 role_risk_factors: str (o list[str] si queréis varios)
