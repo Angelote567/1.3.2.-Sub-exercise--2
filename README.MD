@@ -104,18 +104,19 @@ last_documentation_update_date: str | datetime
 
 ## History
 history: JSON //Delivery date, event_type, delivered/received, description
-
 We changed the event structure to a JSON inside history
 
-## OSH (PRL)
-role_risk_factors: str
-osh_training_received: bool
-osh_training_date: str | datetime
-ppe_issued: bool
-ppe_details: str
-medical_fitness: str
-medical_exam_date: str | datetime
-osh_notes: str
+## OSH = Occupational Safety and Health
+role: str --> Type of role taken (better to filter between different problems)
+role_risk_factors: str --> (Type of risk factor related with the role)
+osh_training_received: bool --> (Has taken the OSH course)
+osh_training_date: str | datetime --> (When the OSH course was taken)
+ppe_issued: bool (If the personal protective equipment was given to that person)
+ppe_details: str (Details of the personal protective equipment)
+medical_fitness: str (Person state of health ex: Fit, Unfit, etc...)
+medical_exam_date: str | datetime (Last medical exam made by the business)
+osh_notes: str (Additional notes related with the OSH)
+
 
 ## SocialSecurity
 - **ss_affiliation_number**: str --> It is not a mathematical value, it is a legal identifier assigned by the Social Security system. Although it contains numbers, it may include leading zeros or follow a specific structured format. Representing it as text preserves its integrity, avoids formatting issues, and prevents accidental mathematical operations.
