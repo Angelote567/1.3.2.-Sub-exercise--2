@@ -94,12 +94,17 @@ medical_fitness: str
 medical_exam_date: str | datetime
 osh_notes: str
 
-SocialSecurity
-ss_affiliation_number: str
-ss_enrollment_date: str | datetime
-contribution_group: str
-withholding_rate_ss: float
-applicable_bonuses: list[str]  # or list[dict] if storing details
+## SocialSecurity
+**ss_affiliation_number**: str --> It is not a mathematical value, it is a legal identifier assigned by the Social Security system. Although it contains numbers, it may include leading zeros or follow a specific structured format. Representing it as text preserves its integrity, avoids formatting issues, and prevents accidental mathematical operations.
+
+**ss_enrollment_date**: datetetime --> It represents the date when the employee was registered in the Social Security system. Python does not have a standalone date type outside the datetime module, so the date class from datetime is used. This allows temporal comparisons, seniority calculations, and efficient date-based queries without adding unnecessary time precision.
+
+**contribution_group**: str --> It represents an administrative classification that determines contribution bases and regulatory conditions. Although it may appear numeric in regulations, it is conceptually a category rather than a value used for calculations. Storing it as text avoids semantic confusion and preserves flexibility.
+
+**withholding_rate_ss**: float --> It represents a percentage applied to salary calculations and may include decimal values. Since it is used in financial computations, a numeric type is required. float is appropriate because contribution rates are expressed with decimal precision.
+
+**applicable_bonuses**: list[str] --> An employee may qualify for multiple Social Security bonuses simultaneously. A list structure allows storing multiple values dynamically. Each bonus is represented as text because it is identified by name or legal reference.
+
 
 ## Resources
 **laptop_assigned**: bool --> This field can only be true or false. It shows if the employee has a
