@@ -125,12 +125,11 @@ email platforms. Since an employee can have access to several systems, a list is
 **assigned_licenses**: list[str] --> This field stores the software licenses assigned to the employee,
 like Microsoft 365 or Adobe. It is a list because the employee may have more than one license at the
 same time.
-
-Exit
-termination_date: str | datetime | None
-termination_reason: str | None
-exit_interview_done: bool
-severance_delivered: bool
-employer_certificate_delivered: bool
-assets_recovered: bool
-exit_comments: str
+Exit (Blanca Carlos)
+**termination_date**:datetime | None --> The termination may not have occurred yet, so it requires a date-time value but must allow null when the employee is still active.
+**termination_reason**: str | None -->Is descriptive text and may be unknown or not provided at the moment of record creation.
+**exit_interview_done**: bool --> This is a yes/no process indicating whether the exit interview has been completed.
+**severance_delivered**: bool -->Severance is either delivered or not, making a boolean the most appropriate status flag.
+**employer_certificate_delivered**: bool -->  Is either delivered or not.
+**assets_recovered**: bool --> Is either  fully recovered or not.
+**exit_comments**: str --> Free-form text is required to store notes, feedback, or additional context about the exit process.
