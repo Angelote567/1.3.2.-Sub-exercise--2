@@ -1,30 +1,30 @@
-// Estamos en la línea 57
+// We are on line 57
 
 
-EmployeeProfile (perfil):
+EmployeeProfile (profile):
 
-**employee_id**: str --> No es un valor matemático, es un identificador. Representarlo como texto evita interpretaciones erróneas. Además, el ID suele tener formato (prefijos por país, empresa, centro, etc) y si usamos int perdemos esa flexibilidad; y ahorra problemas de formatos como ceros a la izquierda entre otras.
-**first_name**: str --> Un nombre es texto y puede incluir tildes, espacios y nombres compuestos. Guardarlo como str evita pérdidas y respeta formato internacional.
-**last_name**: str --> Lo mismo que en el nombre.
-**id_document**: str (DNI/NIE/passport) --> Tiene letras, formatos distintos por país, y a veces separadores. Un int rompería NIE/DNI con letra y perdería ceros/estructura. Como identificador legal, se trata como texto (aunque se valide con regex).
-**birth_date**: date --> 
-**address**: str
-**city**: str
+**employee_id**: str --> It is not a mathematical value, it is an identifier. Representing it as text avoids misinterpretations. In addition, the ID usually has a format (prefixes by country, company, center, etc.), and if we use int we lose that flexibility; it also avoids format issues such as leading zeros, among others.
+**first_name**: str --> A name is text and may include accents, spaces, and compound names. Storing it as str prevents data loss and respects international formatting.
+**last_name**: str --> Same reasoning as for the first name.
+**id_document**: str (DNI/NIE/passport) --> It contains letters, different country formats, and sometimes separators. An int would break NIE/DNI values with letters and lose zeros/structure. As a legal identifier, it should be treated as text (even if validated with regex).
+**birth_date**: date (datetime.date) --> Although conceptually it can be described as “date”, Python does not have a native type with that exact name, so the date class from the datetime module is used. This choice allows age range queries, temporal calculations, and efficient sorting in MongoDB. datetime.datetime is not used because the birth time adds no value in the HR context and would introduce unnecessary complexity to the data model.
+**address**: str --> It is a free-form and inherently “messy” string (abbreviations, special characters, etc.). It could be modeled as a dict (street, number, etc.), but for synthetic HR data and 1.5M records it usually adds noise and increases size. str is simple and realistic.
+**city**: str --> 
 **province**: str
-**postal_code**: str (mejor str para no perder ceros)
+**postal_code**: str (better as str to avoid losing leading zeros)
 **phone**: str
 **email**: str
-**marital_status**: str (o enum/string controlado)
+**marital_status**: str (or controlled enum/string)
 **dependents**: int
 **job_title**: str
 **department**: str
 **work_center**: str
 **job_group**: str
 **hire_date**: date
-**contract_type**: str (ej. Permanent/Temporary/Intern)
+**contract_type**: str (e.g. Permanent/Temporary/Intern)
 **workday**: str (Full-time/Part-time)
-**schedule**: str (ej. "9-18", "Turnos", etc.)
-**probation_period**: str (o int meses; recomendado: int meses)
+**schedule**: str (e.g. "9-18", "Shifts", etc.)
+**probation_period**: str (or int months; recommended: int months)
 **applicable_collective_agreement**: str
 
 
@@ -56,7 +56,7 @@ probation_period: str
 applicable_collective_agreement: str
 
 
-Compensation (compensación)
+Compensation
 base_salary_monthly: float
 allowances: float
 extra_payments: int
@@ -67,9 +67,9 @@ bank_account_iban: str
 estimated_company_cost: float
 compensation_notes: str
 
-Documentation (documenación)
+Documentation
 contract_signed: bool
-contract_addenda: list[str]  # o list[dict] si guardas metadatos
+contract_addenda: list[str]  # or list[dict] if storing metadata
 id_copy: bool
 degrees_certificates: list[str]
 resume_cv: bool
@@ -80,10 +80,10 @@ medical_clearance: bool
 image_use_authorization: bool
 last_documentation_update_date: str | datetime
 
-History (historial)
-history: JSON //Fecha "de entregado", tipo_evento, entregado/recibido, descripcion
+History
+history: JSON //Delivery date, event_type, delivered/received, description
 
-Hemos cambiado el evento por un JSON en el history 
+We changed the event structure to a JSON inside history
 
 OSH (PRL)
 role_risk_factors: str
@@ -100,13 +100,13 @@ ss_affiliation_number: str
 ss_enrollment_date: str | datetime
 contribution_group: str
 withholding_rate_ss: float
-applicable_bonuses: list[str]  # o list[dict] si guardas detalles
+applicable_bonuses: list[str]  # or list[dict] if storing details
 
 Resources
 laptop_assigned: bool
 mobile_phone_assigned: bool
 access_card_assigned: bool
-other_assets: list[str]  # o list[dict]
+other_assets: list[str]  # or list[dict]
 asset_delivery_date: str | datetime
 asset_return_date: str | datetime | None
 system_accesses: list[str]
@@ -120,4 +120,3 @@ severance_delivered: bool
 employer_certificate_delivered: bool
 assets_recovered: bool
 exit_comments: str
-
