@@ -103,14 +103,28 @@ withholding_rate_ss: float
 applicable_bonuses: list[str]  # or list[dict] if storing details
 
 Resources
-laptop_assigned: bool
-mobile_phone_assigned: bool
-access_card_assigned: bool
-other_assets: list[str]  # or list[dict]
-asset_delivery_date: str | datetime
-asset_return_date: str | datetime | None
-system_accesses: list[str]
-assigned_licenses: list[str]
+**laptop_assigned**: bool --> This field can only be true or false. It shows if the employee has a
+company laptop. Since the employee either has it or not, a boolean value is enough. It avoids confusion
+and keeps the data clear and easy to read.
+**mobile_phone_assigned**: bool --> This also uses true or false. It indicates if the employee has
+acompany mobile phone. Because it is just a yes/no situation, a boolean type is the simplest and most
+correct option.
+**access_card_assigned**: bool --> This field shows if the employee has received an access card for the
+building. It is a simple yes/no condition, so bool is the best type to use.
+**other_assets**: list[str] --> This is a list because the employee may have more extra items, such as a
+monitor, headset, or tablet. Each item is stored as text. A list allows storing multiple values in one
+field.
+**asset_delivery_date**: date (datetime.date) --> This field stores the date when the equipment was
+given to the employee. Using a date type allows sorting by time and checking how long the assets have
+been assigned.
+**asset_return_date**: date | None --> This field stores the date when the assets were returned. It can
+also be empty (None) if the employee is still using them. This makes it clear whether the return has
+happened or not.
+**system_accesses**: list[str] --> This is a list of systems the employee can use, such as ERP, CRM, o
+email platforms. Since an employee can have access to several systems, a list is the correct structure.
+**assigned_licenses**: list[str] --> This field stores the software licenses assigned to the employee,
+like Microsoft 365 or Adobe. It is a list because the employee may have more than one license at the
+same time.
 
 Exit
 termination_date: str | datetime | None
