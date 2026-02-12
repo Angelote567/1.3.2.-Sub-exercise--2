@@ -3,29 +3,29 @@
 
 EmployeeProfile (perfil):
 
-employee_id: int (único)
-first_name: str
-last_name: str
-id_document: str (DNI/NIE/passport)
-birth_date: date
-address: str
-city: str
-province: str
-postal_code: str (mejor str para no perder ceros)
-phone: str
-email: str
-marital_status: str (o enum/string controlado)
-dependents: int
-job_title: str
-department: str
-work_center: str
-job_group: str
-hire_date: date
-contract_type: str (ej. Permanent/Temporary/Intern)
-workday: str (Full-time/Part-time)
-schedule: str (ej. "9-18", "Turnos", etc.)
-probation_period: str (o int meses; recomendado: int meses)
-applicable_collective_agreement: str
+**employee_id**: str --> No es un valor matemático, es un identificador. Representarlo como texto evita interpretaciones erróneas. Además, el ID suele tener formato (prefijos por país, empresa, centro, etc) y si usamos int perdemos esa flexibilidad; y ahorra problemas de formatos como ceros a la izquierda entre otras.
+**first_name**: str
+**last_name**: str
+**id_document**: str (DNI/NIE/passport)
+**birth_date**: date
+**address**: str
+**city**: str
+**province**: str
+**postal_code**: str (mejor str para no perder ceros)
+**phone**: str
+**email**: str
+**marital_status**: str (o enum/string controlado)
+**dependents**: int
+**job_title**: str
+**department**: str
+**work_center**: str
+**job_group**: str
+**hire_date**: date
+**contract_type**: str (ej. Permanent/Temporary/Intern)
+**workday**: str (Full-time/Part-time)
+**schedule**: str (ej. "9-18", "Turnos", etc.)
+**probation_period**: str (o int meses; recomendado: int meses)
+**applicable_collective_agreement**: str
 
 Compensation (compensación)
 base_salary_monthly: float
