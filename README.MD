@@ -9,11 +9,11 @@ EmployeeProfile (profile):
 **id_document**: str (DNI/NIE/passport) --> It contains letters, different country formats, and sometimes separators. An int would break NIE/DNI values with letters and lose zeros/structure. As a legal identifier, it should be treated as text (even if validated with regex).
 **birth_date**: date (datetime.date) --> Although conceptually it can be described as “date”, Python does not have a native type with that exact name, so the date class from the datetime module is used. This choice allows age range queries, temporal calculations, and efficient sorting in MongoDB. datetime.datetime is not used because the birth time adds no value in the HR context and would introduce unnecessary complexity to the data model.
 **address**: str --> It is a free-form and inherently “messy” string (abbreviations, special characters, etc.). It could be modeled as a dict (street, number, etc.), but for synthetic HR data and 1.5M records it usually adds noise and increases size. str is simple and realistic.
-**city**: str --> 
-**province**: str
-**postal_code**: str (better as str to avoid losing leading zeros)
-**phone**: str
-**email**: str
+**city**: str --> A city name is a descriptive label rather than a numerical value, so representing it as text preserves readability and avoids unnecessary complexity. Using an int would only make sense if the system relied on an external normalized city catalog with numeric IDs, which adds architectural overhead without clear benefits for a synthetic HR dataset. Storing the value as str allows easy grouping, filtering, and aggregation in reporting while keeping the dataset human-readable and flexible.
+**province**: str --> Same justification than city.
+**postal_code**: str --> Postal codes are identifiers, not mathematical values. They may include leading zeros or country-specific formats, which would be lost if stored as int. Using str ensures formatting consistency and avoids data integrity issues during imports or transformations.
+**phone**: str --> Phone numbers are not numerical quantities; they may contain symbols such as “+”, spaces, or extensions. Storing them as int would remove formatting and could introduce errors. Representing them as str preserves flexibility and aligns with common data-modeling practices.
+**email**: str --> An email address is a structured textual identifier containing special characters (“@”, “.”). Using str ensures compatibility with validation rules and avoids unnecessary transformations. There is no practical advantage to using any other data type.
 **marital_status**: str (or controlled enum/string)
 **dependents**: int
 **job_title**: str
