@@ -4,10 +4,10 @@
 EmployeeProfile (perfil):
 
 **employee_id**: str --> No es un valor matemático, es un identificador. Representarlo como texto evita interpretaciones erróneas. Además, el ID suele tener formato (prefijos por país, empresa, centro, etc) y si usamos int perdemos esa flexibilidad; y ahorra problemas de formatos como ceros a la izquierda entre otras.
-**first_name**: str
-**last_name**: str
-**id_document**: str (DNI/NIE/passport)
-**birth_date**: date
+**first_name**: str --> Un nombre es texto y puede incluir tildes, espacios y nombres compuestos. Guardarlo como str evita pérdidas y respeta formato internacional.
+**last_name**: str --> Lo mismo que en el nombre.
+**id_document**: str (DNI/NIE/passport) --> Tiene letras, formatos distintos por país, y a veces separadores. Un int rompería NIE/DNI con letra y perdería ceros/estructura. Como identificador legal, se trata como texto (aunque se valide con regex).
+**birth_date**: date --> 
 **address**: str
 **city**: str
 **province**: str
@@ -26,6 +26,8 @@ EmployeeProfile (perfil):
 **schedule**: str (ej. "9-18", "Turnos", etc.)
 **probation_period**: str (o int meses; recomendado: int meses)
 **applicable_collective_agreement**: str
+
+
 employee_id: str
 first_name: str
 last_name: str
