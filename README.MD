@@ -94,30 +94,19 @@
 <br>
 
 ## History
-- **history**: list[dict] (JSON-like structure) --> Stores the employee’s historical events as a list of structured objects (e.g., delivery date, event_type, delivered/received status, description). Although described conceptually as JSON, in Python and MongoDB this is best represented as a list[dict], where each dictionary corresponds to a single event. This approach allows multiple events per employee while maintaining flexibility and scalability. Using a plain string would remove structure and make querying difficult, whereas a rigid schema could limit extensibility. By modeling history as a structured JSON-like list, the dataset supports filtering by dates or event types, preserves semantic clarity, and remains compatible with MongoDB’s document-oriented design.
+history: JSON //Delivery date, event_type, delivered/received, description
 
-We changed the event representation to a structured JSON-like object inside the history field in order to support richer metadata and future extensibility without altering the overall schema.
-
-<br>
+We changed the event structure to a JSON inside history
 
 ## OSH (PRL)
-- **role_risk_factors**: str --> Describes the main occupational risk factors associated with the employee’s role (e.g., “Office work”, “Field work”, “Industrial environment”). Using str keeps the dataset simple and human-readable while allowing categorization. Although a list[str] could represent multiple risk factors, a single controlled string reduces complexity and storage overhead for large synthetic datasets.
-
-- **osh_training_received**: bool --> Indicates whether the employee has completed Occupational Safety and Health (OSH) training. As this represents a binary compliance status, bool is the most accurate and efficient data type.
-
-- **osh_training_date**: datetime (or str | datetime during ingestion) --> Represents the date when OSH training was completed. Using a proper datetime object enables chronological queries, compliance tracking, and efficient filtering. While str may be temporarily accepted during data ingestion, standardizing to datetime ensures consistency and supports temporal analysis.
-
-- **ppe_issued**: bool --> Indicates whether personal protective equipment (PPE) has been issued to the employee. Since this is a yes/no condition, bool provides a clear and semantically correct representation.
-
-- **ppe_details**: str --> Contains descriptive information about the PPE provided (e.g., “Helmet and gloves”). Using str maintains flexibility and readability without introducing unnecessary structural complexity. A more detailed list or dict could be used in advanced scenarios but is not required for the current dataset scope.
-
-- **medical_fitness**: str --> Represents the employee’s occupational medical fitness status (e.g., “Fit”, “Restricted”, “Unfit”). Although conceptually similar to an enum, storing it as a controlled str keeps the data human-readable and consistent with MongoDB’s schema flexibility.
-
-- **medical_exam_date**: datetime --> Indicates the date of the employee’s last medical examination. Using datetime ensures accurate chronological comparisons, reporting, and filtering, while avoiding formatting inconsistencies associated with strings.
-
-- **osh_notes**: str --> Stores optional free-text comments related to OSH evaluations or conditions. As this field may contain descriptive or unstructured information, str is the most suitable and flexible data type.
-
-<br>
+role_risk_factors: str
+osh_training_received: bool
+osh_training_date: str | datetime
+ppe_issued: bool
+ppe_details: str
+medical_fitness: str
+medical_exam_date: str | datetime
+osh_notes: str
 
 ## SocialSecurity
 - **ss_affiliation_number**: str --> It is not a mathematical value, it is a legal identifier assigned by the Social Security system. Although it contains numbers, it may include leading zeros or follow a specific structured format. Representing it as text preserves its integrity, avoids formatting issues, and prevents accidental mathematical operations.
