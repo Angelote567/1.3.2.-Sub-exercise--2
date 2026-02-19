@@ -1,4 +1,9 @@
-## EmployeeProfile (profile):
+## **Executive Summary**
+
+## **Introduction**
+
+## **HR Data Model Design and Attribute Justification**
+### EmployeeProfile (profile):
 - **employee_id**: str --> It is not a mathematical value, it is an identifier. Representing it as text avoids misinterpretations. In addition, the ID usually has a format (prefixes by country, company, center, etc.), and if we use int we lose that flexibility; it also avoids format issues such as leading zeros, among others.
 
 - **first_name**: str --> A name is text and may include accents, spaces, and compound names. Storing it as str prevents data loss and respects international formatting.
@@ -47,7 +52,7 @@
 
 <br>
 
-## Compensation
+### Compensation
 - **base_salary_monthly**: float --> This field represents the employee’s gross monthly base salary, which is a quantitative monetary value. Using float allows the model to handle decimal values accurately and supports financial calculations, aggregations, and comparisons. Storing it as int could be restrictive if cents or prorated values appear, while str would prevent numerical analysis and require unnecessary parsing.
 
 - **allowances**: float --> Allowances represent additional monetary compensation (e.g., transport or meal benefits). Representing this field as a float keeps the model simple and efficient for large-scale synthetic datasets. Although a dict could provide a detailed breakdown, it would increase complexity and storage size without clear analytical benefits for the current scope.
@@ -68,7 +73,7 @@
 
 <br>
 
-## Documentation
+### Documentation
 - **contract_signed**: bool --> Indicates whether the main employment contract has been signed. Since this represents a binary state (signed or not signed), bool is the most semantically correct and efficient data type, avoiding ambiguity and simplifying filtering or validation logic.
 
 - **contract_addenda**: list[str] --> Represents a list of contract addenda identifiers or filenames associated with the employee. A list[str] keeps the structure lightweight and easy to manage for large datasets. Although list[dict] could store richer metadata (e.g., date, type, or version), it would increase storage size and complexity without clear necessity for a synthetic HR model.
@@ -93,14 +98,14 @@
 
 <br>
 
-## History
+### History
 - **history**: list[dict] (JSON-like structure) --> Stores the employee’s historical events as a list of structured objects (e.g., delivery date, event_type, delivered/received status, description). Although described conceptually as JSON, in Python and MongoDB this is best represented as a list[dict], where each dictionary corresponds to a single event. This approach allows multiple events per employee while maintaining flexibility and scalability. Using a plain string would remove structure and make querying difficult, whereas a rigid schema could limit extensibility. By modeling history as a structured JSON-like list, the dataset supports filtering by dates or event types, preserves semantic clarity, and remains compatible with MongoDB’s document-oriented design.
 
 We changed the event representation to a structured JSON-like object inside the history field in order to support richer metadata and future extensibility without altering the overall schema.
 
 <br>
 
-## OSH (PRL)
+### OSH (PRL)
 - **role_risk_factors**: str --> Describes the main occupational risk factors associated with the employee’s role (e.g., “Office work”, “Field work”, “Industrial environment”). Using str keeps the dataset simple and human-readable while allowing categorization. Although a list[str] could represent multiple risk factors, a single controlled string reduces complexity and storage overhead for large synthetic datasets.
 
 - **osh_training_received**: bool --> Indicates whether the employee has completed Occupational Safety and Health (OSH) training. As this represents a binary compliance status, bool is the most accurate and efficient data type.
@@ -119,7 +124,7 @@ We changed the event representation to a structured JSON-like object inside the 
 
 <br>
 
-## SocialSecurity
+### SocialSecurity
 - **ss_affiliation_number**: str --> It is not a mathematical value, it is a legal identifier assigned by the Social Security system. Although it contains numbers, it may include leading zeros or follow a specific structured format. Representing it as text preserves its integrity, avoids formatting issues, and prevents accidental mathematical operations.
 
 - **ss_enrollment_date**: datetetime --> It represents the date when the employee was registered in the Social Security system. Python does not have a standalone date type outside the datetime module, so the date class from datetime is used. This allows temporal comparisons, seniority calculations, and efficient date-based queries without adding unnecessary time precision.
@@ -132,7 +137,7 @@ We changed the event representation to a structured JSON-like object inside the 
 
 <br>
 
-## Resources
+### Resources
 - **laptop_assigned**: bool --> This field can only be true or false. It shows if the employee has a
 company laptop. Since the employee either has it or not, a boolean value is enough. It avoids confusion
 and keeps the data clear and easy to read.
@@ -165,7 +170,7 @@ same time.
 
 <br>
 
-## Exit
+### Exit
 - **termination_date**:datetime | None --> The termination may not have occurred yet, so it requires a date-time value but must allow null when the employee is still active.
 
 - **termination_reason**: str | None -->Is descriptive text and may be unknown or not provided at the moment of record creation.
@@ -179,3 +184,40 @@ same time.
 - **assets_recovered**: bool --> Is either  fully recovered or not.
 
 - **exit_comments**: str --> Free-form text is required to store notes, feedback, or additional context about the exit process.
+
+<br>
+
+## **Business Decisions (Why these fields are included)**
+
+This HR database is intended to serve as a single source of truth for future analytics exercises, so the selected attributes must support realistic reporting use cases (headcount, payroll, compliance, workforce structure, and operational resources).
+
+- **MaritalStatus** was kept because it is a common HR attribute used in demographic reporting and can influence payroll-related processes in real organizations (e.g., dependents, benefits eligibility). For synthetic data, it also improves realism in demographic breakdowns without adding high complexity.
+
+- **OSH (PRL) block** was kept because Occupational Safety and Health compliance is a critical requirement in many industries. Including OSH data enables realistic compliance reporting (training coverage, medical fitness statuses, risk categories by role) and supports later exercises involving audit-like queries and segmentation.
+
+- **CompensationNotes** was kept as an optional free-text field to reflect real HR/payroll systems where exceptions exist (e.g., temporary adjustments, special allowances, internal notes). However, to avoid unnecessary data volume in a 1.5M-record dataset, notes will be short and rarely populated (low probability), so the field adds realism without inflating storage significantly.
+
+Overall, we prioritized attributes that:
+1) are commonly present in HR systems,
+2) enable meaningful HR/payroll/compliance analytics,
+3) can be generated consistently at scale (≈1.5M records),
+4) improve realism and diversity of resulting reports and charts.
+
+<br>
+
+## **Data Generation Strategy (Hybrid: External + Synthetic)**
+
+
+<br>
+
+## **Coherence Rules and Data Integrity**
+
+
+<br>
+
+## **Team Task Allocation**
+
+
+<br>
+
+## **Conclusion**
