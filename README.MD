@@ -69,7 +69,7 @@
 <br>
 
 ## Documentation
-- **contract_signed**: bool --> Indicates whether the main employment contract has been signed. Since this represents a binary state (signed or not signed), bool is the most semantically correct and efficient data type, avoiding ambiguity and simplifying filtering or validation logic.
+- **contract_signed**: bool --> Indicates whether the main employment contract has been signed. Since this represents a binary state (always signed), bool is the most semantically correct and efficient data type, avoiding ambiguity and simplifying filtering or validation logic.
 
 - **contract_addenda**: list[str] --> Represents a list of contract addenda identifiers or filenames associated with the employee. A list[str] keeps the structure lightweight and easy to manage for large datasets. Although list[dict] could store richer metadata (e.g., date, type, or version), it would increase storage size and complexity without clear necessity for a synthetic HR model.
 
