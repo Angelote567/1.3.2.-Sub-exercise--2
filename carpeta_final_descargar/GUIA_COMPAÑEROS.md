@@ -66,6 +66,15 @@ para tu VM**. Cópialo entero pulsando "Copiar".
 > persona. No copies el puerto del compañero. Usa siempre el que aparece en TU
 > ventana de Azure.
 
+
+# ANTES QUE SALGAIS DE LA MAQUINA PRIMERO QUE TODO 
+Ejecutar estos comandos
+```bash
+cd ~
+sudo rm -r hr_database_project
+```
+Esto es para lo que lo habiais instalado antes y da error 
+
 ### 1.4. Abrir terminal y conectar
 
 **Si usas Windows:**
@@ -157,6 +166,7 @@ ls
 Tienes que ver una carpeta llamada `project` (o similar). Entra:
 
 ```bash
+cd hr_database_project
 cd project
 ls
 ```
@@ -195,7 +205,7 @@ sudo apt install python3-venv -y
 Asegúrate de estar dentro de la carpeta `project`:
 
 ```bash
-cd ~/project
+cd ~/hr_database_project/project
 ```
 
 Y crea el entorno:
@@ -273,6 +283,12 @@ ID_OFFSET = 0
 
 Mira la **tabla de asignación de offsets** del principio de este documento. Pon
 los valores que te corresponden. Por ejemplo, si eres **bea**:
+
+
+## TAMBIEN HACE FALTA CAMBIAR RANDOM SEED 
+```python
+RANDOM_SEED == EL NUMERO QUE OS SALGA DEL RABO
+```
 
 ```python
 N_OUTPUTS = 150000
